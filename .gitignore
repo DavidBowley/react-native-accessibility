@@ -6,6 +6,7 @@ node_modules/
 .env.*.local
 
 *.tsbuildinfo
+build/
 
 # debugging/testing files
 test*
