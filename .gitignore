@@ -7,6 +7,8 @@ node_modules/
 
 *.tsbuildinfo
 build/
+*.js
+*.js.map
 
 # debugging/testing files
 test*
