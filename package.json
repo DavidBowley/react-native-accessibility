@@ -2,6 +2,7 @@
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2",
     "@eslint/js": "^9.31.0",
+    "cross-env": "^10.0.0",
     "eslint": "^9.31.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.3",
@@ -9,5 +10,9 @@
     "prettier": "^3.6.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0"
+  },
+  "scripts": {
+    "build:dev": "cross-env BUILD_ENV=development npx @11ty/eleventy --serve",
+    "build:prod": "cross-env BUILD_ENV=production npx @11ty/eleventy --pathprefix=react-native-accessibility"
   }
 }

@@ -1,0 +1,22 @@
+name: TSC -> 11ty build -> Deploy to GitHub Pages
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      - name: Install all Node packages
+        run: npm ci
+      - name: Run tsc using Production .tsconfig settings
+        run: npx tsc -p tsconfig.production.json
+      - name: Build the 11ty site
+        run: npm run build:prod
+      - name: Deploy to GitHub pages 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build
