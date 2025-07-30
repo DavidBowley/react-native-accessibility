@@ -1,3 +1,46 @@
+/* * {
+  outline: solid black 2px;
+} */
+
+/* Base Styles */
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  padding: 0.5rem 2rem 0 2rem;
+}
+
+/* Heading Styles */
+
+h1 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  margin-bottom: 0rem;
+}
+
+/* TODO: add other heading levels */
+
+/* Paragraph Styles */
 p {
-  font-size: 2rem;
+  margin-top: 0rem;
+}
+
+/* Link Styles */
+
+a {
+  font-weight: bold;
+  color: #000;
+}
+
+a:visited {
+  color: #6a3699;
+}
+
+a:visited.no-visited-state {
+  color: #000;
 }
