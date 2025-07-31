@@ -1,4 +1,5 @@
 import { HtmlBasePlugin } from "@11ty/eleventy";
+import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 
 export default async function (eleventyConfig) {
   const BUILD_ENV = process.env.BUILD_ENV;
@@ -15,6 +16,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.setInputDirectory("src");
   eleventyConfig.setOutputDirectory("build");
   eleventyConfig.addPlugin(HtmlBasePlugin);
+  eleventyConfig.addPlugin(syntaxHighlight);
 
   if (BUILD_ENV === "development") {
     eleventyConfig.addPassthroughCopy("src/assets");

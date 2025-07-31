@@ -1,0 +1,29 @@
+---
+layout: design-pattern.njk
+title: Text Field Design Pattern
+---
+<p>A Text Field is a component that allows the user to input text into the application. 
+    This pattern can be particularly confusing due to the way React Native documentation 
+    can give the impression that a one-size-fits-all approach is possible.
+</p>
+<p>In reality, React Native holds closely to each individual platform's accessibility API, 
+    meaning that whatever works or doesn't work on the native API is likely the same when 
+    applying the various accessibility props.
+</p>
+<p>For example, a common mistake when adding an accessible name to a text input field on 
+    Android native code is to use a <code class="inline-highlight">contentDescription</code> 
+    on the <code class="inline-highlight">&lt;EditText&gt;</code>. This is specifically 
+    recommended against by Google in their <a href="https://support.google.com/accessibility/android/answer/6378120">accessibility documentation on Editable View labels</a>: 
+</p>
+
+<blockquote>
+    Defining an <code class="inline-highlight">android:contentDescription</code> on any <code class="inline-highlight">EditText</code> or editable <code class="inline-highlight">TextView</code> may interfere with an accessibility service's ability to describe, navigate and interact with text that a user enters within the item.
+</blockquote>
+
+<div
+  data-snack-id="@react_native_accessibility/cross-platform-text-input-accessible-names---new-version-for-editing"
+  data-snack-platform="mydevice"
+  data-snack-supportedplatforms="mydevice"
+  data-snack-preview="true"
+  data-snack-theme="light"
+  data-snack-loading="lazy"></div>
