@@ -26,8 +26,22 @@ h2 {
 /* TODO: add other heading levels */
 
 /* Paragraphs */
+
 p {
   margin-top: 0rem;
+}
+
+/* Blockquotes */
+blockquote {
+  background: #f2f2f2;
+  border-left: 0.25rem solid #949494;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+blockquote p {
+  margin: 0.5rem;
 }
 
 /* Links */
@@ -63,6 +77,7 @@ code.inline-highlight {
     "Roboto Mono", Consolas, Monaco, "Andale Mono", "Courier New", Courier,
     monospace;
   font-weight: normal;
+  font-style: normal;
   background-color: #efefef;
   padding-left: 0.25rem;
   padding-right: 0.25rem;

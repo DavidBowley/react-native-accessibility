@@ -13,12 +13,24 @@ title: Text Field Design Pattern
 <p>For example, a common mistake when adding an accessible name to a text input field on 
     Android native code is to use a <code class="inline-highlight">contentDescription</code> 
     on the <code class="inline-highlight">&lt;EditText&gt;</code>. This is specifically 
-    recommended against by Google in their <a href="https://support.google.com/accessibility/android/answer/6378120">accessibility documentation on Editable View labels</a>: 
+    recommended against by Google in their accessibility documentation on Editable View labels: 
 </p>
 
 <blockquote>
-    Defining an <code class="inline-highlight">android:contentDescription</code> on any <code class="inline-highlight">EditText</code> or editable <code class="inline-highlight">TextView</code> may interfere with an accessibility service's ability to describe, navigate and interact with text that a user enters within the item.
+    <p>&ldquo;Defining an <code class="inline-highlight">android:contentDescription</code> 
+    on any <code class="inline-highlight">EditText</code> or editable <code class="inline-highlight">TextView</code> 
+    may interfere with an accessibility service's ability to describe, navigate and 
+    interact with text that a user enters within the item.&rdquo;
+    </p>
+    <p>
+        &mdash; 
+        <cite>
+            <a href="https://support.google.com/accessibility/android/answer/6378120">Editable View labels - Android accessibility Help</a>
+        </cite>
+    </p>
 </blockquote>
+
+<p>Test paragraph</p>
 
 <div
   data-snack-id="@react_native_accessibility/cross-platform-text-input-accessible-names---new-version-for-editing"
