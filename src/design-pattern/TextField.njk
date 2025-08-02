@@ -8,14 +8,44 @@ title: Text Field Design Pattern
 </p>
 <p>In reality, React Native holds closely to each individual platform's accessibility API, 
     meaning that whatever works or doesn't work on the native API is likely the same when 
-    applying the various accessibility props.
+    applying the various accessibility props. So we need to build out our component taking 
+    these accessibility best practices into consideration on a per platform basis. Then we'll 
+    join up the two efforts into a cross-platform component that works on both native platforms.
 </p>
-<p>For example, a common mistake when adding an accessible name to a text input field on 
-    Android native code is to use a <code class="inline-highlight">contentDescription</code> 
-    on the <code class="inline-highlight">&lt;EditText&gt;</code>. This is specifically 
-    recommended against by Google in their accessibility documentation on Editable View labels: 
+<h2>Text Field Basics</h2>
+<p>
+    Before we take a look at the specifics for each mobile platform, let's look at some of the 
+    design patterns that will be largely the same throughout both.
 </p>
-
+<p>
+    In both cases we'll want to base our component on a React Native core component called 
+    <a href="https://reactnative.dev/docs/textinput">
+        <code class="inline-highlight">&lt;TextInput&gt;</code></a>. For all the bad that I can 
+    say about the React Native accessibility API, it's worth pointing out that the core components 
+    do at least try to be accessible, often because they translate to a native platform core 
+    component which has already had plenty of accessibility work completed by Google and Apple
+    respectively.
+</p>
+<p>
+    A React Native <code class="inline-highlight">&lt;TextInput&gt;</code> corresponds to either a native 
+    Android <a href="https://developer.android.com/reference/kotlin/android/widget/EditText">
+        <code class="inline-highlight">EditText</code></a> or a native iOS 
+        <a href="https://developer.apple.com/documentation/uikit/uitextfield">
+        <code class="inline-highlight">UITextField</code></a>, and has many of the same accessibility features you'd find in a native app that used those components.
+</p>
+<h2>Android</h2>
+<p>For the platform-specific work, let's start with the more complicated Android setup. It would 
+    be great if we lived in a world where you 
+    could simply provide an accessible name directly to any component you wanted merely by using 
+    an <code class="inline-highlight">accessibilityLabel</code>. You might even get the impression 
+    from the official <a href="https://reactnative.dev/docs/accessibility">React Native accessibility documentation</a> 
+    that this is an option for a <code class="inline-highlight">&lt;TextInput&gt;</code>... but it really isn't.
+</p>
+<p>
+    This is because a React Native <code class="inline-highlight">accessibilityLabel</code> 
+    usually compiles down to a <code class="inline-highlight">contentDescription</code> on 
+    a native Android build. And using this on a text input field isn't a great idea, even Google says so:
+</p>
 <blockquote>
     <p>&ldquo;Defining an <code class="inline-highlight">android:contentDescription</code> 
     on any <code class="inline-highlight">EditText</code> or editable <code class="inline-highlight">TextView</code> 
@@ -30,8 +60,44 @@ title: Text Field Design Pattern
     </p>
 </blockquote>
 
-<p>Test paragraph</p>
-
+<p>
+    What tends to happen is that the accessible name will announce fine when there is no 
+    user input in the field, but once the user starts typing then the accessible name association 
+    breaks down and it becomes an unlabelled text field. The actual recommendation as described on 
+    the above link is to identify a particular <code class="inline-highlight">TextView</code> as the 
+    text input's accessible name using <code class="inline-highlight">android:labelFor</code> to 
+    reference its <code class="inline-highlight">id</code>.
+</p>
+<p>
+    For our Android React Native implementation we recreate the same effect by using  
+    <code class="inline-highlight">accessibilityLabelledBy</code> on our <code class="inline-highlight">TextInput</code> 
+    to reference the <code class="inline-highlight">nativeID</code> of our <code class="inline-highlight">Text</code> 
+    component that holds the visible label. The end result in the native Android build is that an 
+    <code class="inline-highlight">android:labelFor</code> is setup to refer back to the text input field.
+</p>
+<p>
+    This means that the same issues you'll find on an Android Native text input field also occur on our React Native 
+    component, such as finding it quite difficult to provide a custom accessible name that includes both the visible 
+    label and some other text that might be associated to the field. One workaround for this is to add an 
+    <code class="inline-highlight">accessibilityLabel</code> to the <code class="inline-highlight">Text</code> 
+    component being used as the accessible name, e.g. <code class="inline-highlight">"First Name, Error: this field is required"</code> 
+    or similar. This does work, <i>but...</i> that means the visible label also announces with the same text when focused 
+    just before the field. And yes you could try hiding it from the TalkBack to get around this, but that simply 
+    breaks the <code class="inline-highlight">android:labelFor</code> completely.
+</p>
+<p>
+    For now I'm not attempting to address these issues in any great detail. I have seen native patterns for text input fields that 
+    handle the above issues quite well, but they involve using complex view hierarchies where the text input 
+    itself is not directly focused. I hope to update this design pattern to reflect something like this in the future 
+    if I find an easy enough way to do it without directly writing native code.
+</p>
+<h2>iOS (TODO)</h2>
+<p>
+    <ul>
+        <li>accessibilityLabel works</li>
+        <li>The visible label can be hidden to no ill effect for a better experience</li>
+    </ul>
+</p>
 <div
   data-snack-id="@react_native_accessibility/cross-platform-text-input-accessible-names---new-version-for-editing"
   data-snack-platform="mydevice"
